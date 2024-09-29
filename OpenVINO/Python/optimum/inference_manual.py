@@ -1,9 +1,20 @@
 import torch
 from optimum.intel import OVModelForQuestionAnswering
 from transformers import AutoTokenizer, pipeline
+from openvino.runtime import Core
 
-model = OVModelForQuestionAnswering.from_pretrained("distilbert-base-uncased-distilled-squad-ov-fp32")
+def show_devices():
+    for device in Core().available_devices:
+        print(device, Core().get_property(device, "FULL_DEVICE_NAME"))
+
+show_devices()
+
+model = OVModelForQuestionAnswering.from_pretrained("distilbert-base-uncased-distilled-squad-ov-fp32", compile=False)
 tokenizer = AutoTokenizer.from_pretrained("distilbert-base-uncased-distilled-squad-ov-fp32")
+
+if "GPU" in Core().available_devices:
+    model.to("GPU")
+    model.compile()
 
 question, text = "What is OpenVINO?", "OpenVINO is a framework for deep learning inference optimization"
 

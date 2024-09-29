@@ -1,2 +1,3 @@
 optimum-intel[openvino,nncf]
 accelerate
+torch==2.2.2

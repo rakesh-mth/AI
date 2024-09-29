@@ -207,3 +207,8 @@ poetry.toml
 pyrightconfig.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python,c++
+
+# model folders
+distilbert-base-uncased-distilled-squad-ov-fp32
+gpt2-ov
+phi-2_openvino
